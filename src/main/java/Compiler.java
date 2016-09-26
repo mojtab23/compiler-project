@@ -30,16 +30,19 @@ public class Compiler {
 
         while (pointer < chars.length) {
 
-            pointer = checkAndAdd(pointer,chars, tokens);
+            pointer = checkAndAdd(pointer, chars, tokens);
 
         }
 
-        return null;
+        return tokens;
     }
 
-    private int checkAndAdd(final int pointer,final char[] chars, final List<String> tokens) {
+    private int checkAndAdd(final int pointer, final char[] chars, final List<String> tokens) {
 //        your code goes here!
-        return 0;
+        //
+        return new CalcTest(pointer, chars, tokens).start();
+        //
+//        return 0;
     }
 
 }

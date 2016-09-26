@@ -39,8 +39,7 @@ public class Compiler {
 
     private int checkAndAdd(final int pointer, final char[] chars, final List<Token> tokens) {
 //        your code goes here! ###################        //
-
-        return 0;
+        return new CalcTest(pointer, chars, tokens).start();
 //        ###################        //
     }
 

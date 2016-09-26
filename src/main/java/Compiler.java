@@ -22,11 +22,11 @@ public class Compiler {
     }
 
 
-    public List<String> tokenizer(final String input) {
+    public List<Token> tokenizer(final String input) {
 
         int pointer = 0;
         char[] chars = input.toCharArray();
-        List<String> tokens = new ArrayList<>();
+        List<Token> tokens = new ArrayList<>();
 
         while (pointer < chars.length) {
 
@@ -37,7 +37,7 @@ public class Compiler {
         return tokens;
     }
 
-    private int checkAndAdd(final int pointer, final char[] chars, final List<String> tokens) {
+    private int checkAndAdd(final int pointer, final char[] chars, final List<Token> tokens) {
 //        your code goes here!
         //
         return new CalcTest(pointer, chars, tokens).start();

@@ -9,10 +9,10 @@ public class CalcTest {
     private int pointer;
     private int saveIndex;
     private char[] chars;
-    private List<String> tokens;
+    private List<Token> tokens;
 
 
-    public CalcTest(int pointer, char[] chars, List<String> tokens) {
+    public CalcTest(int pointer, char[] chars, List<Token> tokens) {
         this.pointer = pointer;
         this.chars = chars;
         this.tokens = tokens;
@@ -87,9 +87,10 @@ public class CalcTest {
     }
 
     private void finalState(String className) {
-        String builder = className + " " +
-                String.valueOf(chars, saveIndex, pointer - saveIndex);
-        tokens.add(builder);
+//        String builder = className + " " +
+//                String.valueOf(chars, saveIndex, pointer - saveIndex);
+//        tokens.add(builder);
+        tokens.add(new Token(String.valueOf(chars, saveIndex, pointer - saveIndex), className));
 
     }
 

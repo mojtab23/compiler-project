@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ public class CalcTest {
     private List<Token> tokens;
 
 
-    public CalcTest(int pointer, char[] chars, List<Token> tokens) {
+    public CalcTest(char[] chars, List<Token> tokens) {
         this.pointer = pointer;
         this.chars = chars;
         this.tokens = tokens;
@@ -24,7 +25,7 @@ public class CalcTest {
 //    }
 
 
-    public int start() {
+    public char[] start() {
         char c = chars[pointer];
         if (isNumber(c)) {
             numberState();
@@ -33,7 +34,7 @@ public class CalcTest {
         } else if (isSpace(c)) {
             spaceState();
         } else errorState();
-        return pointer;
+        return Arrays.copyOfRange(chars, pointer, chars.length);
     }
 
     private void spaceState() {

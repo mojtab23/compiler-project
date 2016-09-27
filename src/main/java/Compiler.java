@@ -1,6 +1,8 @@
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +15,12 @@ public class Compiler {
 
     public String readFile(final String filePath) {
         try {
-            return new String(Files.readAllBytes(Paths.get(filePath)), Charset.defaultCharset());
+            Path path = Paths.get(getClass().getResource(filePath).toURI());
+            return new String(Files.readAllBytes(path), Charset.defaultCharset());
         } catch (IOException e) {
             System.err.println("Error reading file: \"" + filePath + "\"");
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         return null;
@@ -44,4 +49,7 @@ public class Compiler {
 //        ###################        //
     }
 
+    public void showTokens(List<Token> tokens) {
+        tokens.forEach(System.out::println);
+    }
 }

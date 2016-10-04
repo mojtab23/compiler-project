@@ -30,9 +30,32 @@ public class Parser {
         return true;
     }
 
+    /**
+     * for constant tokens like (if)
+     *
+     * @param token
+     * @param tokenType
+     * @return
+     */
     private boolean token(String token, Token.TokenType tokenType) {
         Token t = tokenList.get(pointer);
         if (t.getData().equals(token) && t.getTokenClass().equals(tokenType.name())) {
+            pointer++;
+            return true;
+        }
+        errorLine = pointer;
+        return false;
+    }
+
+    /**
+     * for variables like literals and identifiers
+     *
+     * @param tokenType
+     * @return
+     */
+    private boolean token(Token.TokenType tokenType) {
+        Token t = tokenList.get(pointer);
+        if (t.getTokenClass().equals(tokenType.name())) {
             pointer++;
             return true;
         }

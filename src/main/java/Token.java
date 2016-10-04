@@ -5,7 +5,7 @@ public class Token {
 
     private String data;
     private String tokenClass;
-    private int Line;
+    private int line;
     private int start;
 
     public Token(String data, String tokenClass) {
@@ -16,7 +16,7 @@ public class Token {
     public Token(String data, String tokenClass, int line, int start) {
         this.data = data;
         this.tokenClass = tokenClass;
-        Line = line;
+        this.line = line;
         this.start = start;
     }
 
@@ -25,7 +25,7 @@ public class Token {
         return "Token{" +
                 "data='" + data + '\'' +
                 ", tokenClass='" + tokenClass + '\'' +
-//                ", Line=" + Line +
+//                ", line=" + line +
 //                ", start=" + start +
                 '}';
     }
@@ -47,11 +47,11 @@ public class Token {
     }
 
     public int getLine() {
-        return Line;
+        return line;
     }
 
     public void setLine(int line) {
-        Line = line;
+        this.line = line;
     }
 
     public int getStart() {
@@ -61,4 +61,10 @@ public class Token {
     public void setStart(int start) {
         this.start = start;
     }
+
+    enum TokenType {
+        KEYWORD, NUMBER_LITERAL, BOOLEAN_LITERAL, MAIN, SEPARATOR, IDENTIFIER, OPERATOR
+    }
+
+
 }

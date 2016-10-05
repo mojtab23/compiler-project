@@ -1,6 +1,5 @@
 import java.util.List;
 
-import static Token.TokenType.*;
 
 /**
  * Created by mojtab23 on 10/3/16.
@@ -22,12 +21,13 @@ public class Parser {
 
     private boolean program() {
 
-        return token("int", KEYWORD) && token("main", MAIN) && token("{", SEPARATOR) && expression() && token("}", SEPARATOR);
+        return token("int", TokenType.KEYWORD) && token("main", TokenType.MAIN) &&
+                token("{", TokenType.SEPARATOR) && expression() && token("}", TokenType.SEPARATOR);
     }
 
     private boolean expression() {
         // continue from here.
-        return true;
+//        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Parser {
      * @param tokenType
      * @return
      */
-    private boolean token(String token, Token.TokenType tokenType) {
+    private boolean token(String token, TokenType tokenType) {
         Token t = tokenList.get(pointer);
         if (t.getData().equals(token) && t.getTokenClass().equals(tokenType.name())) {
             pointer++;
@@ -53,7 +53,7 @@ public class Parser {
      * @param tokenType
      * @return
      */
-    private boolean token(Token.TokenType tokenType) {
+    private boolean token(TokenType tokenType) {
         Token t = tokenList.get(pointer);
         if (t.getTokenClass().equals(tokenType.name())) {
             pointer++;

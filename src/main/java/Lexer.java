@@ -8,12 +8,11 @@ public class Lexer {
     public List<Token> tokenize(String inputData) {
         int pointer = 0;
         List<Token> tokenList = new ArrayList<>();
-        while (true) {
-            if ((pointer >= 0) && (pointer < inputData.length())) {
-                pointer = addNextToken(inputData, tokenList);
-                inputData = inputData.substring(pointer + 1);
-            } else
+        while (inputData.length() > 0) {
+            pointer = addNextToken(inputData, tokenList);
+            if (pointer < 0)
                 break;
+            inputData = inputData.substring(pointer + 1);
         }
         return tokenList;
     }
@@ -22,5 +21,6 @@ public class Lexer {
 //		Your code goes here!
 //		Extract the next token from inputData and add it to tokenList
 //		The return value refers to the end of next token in inputData
+//        return 1;
     }
 }

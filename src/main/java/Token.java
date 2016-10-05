@@ -62,9 +62,7 @@ public class Token {
         this.start = start;
     }
 
-    enum TokenType {
-        KEYWORD, NUMBER_LITERAL, BOOLEAN_LITERAL, MAIN, SEPARATOR, IDENTIFIER, OPERATOR
-    }
+
 
 
 }

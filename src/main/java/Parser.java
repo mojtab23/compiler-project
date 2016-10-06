@@ -5,29 +5,28 @@ import java.util.List;
  * Created by mojtab23 on 10/3/16.
  */
 public class Parser {
-
     private int errorLine;
-    private AST ast = new AST();
     private List<Token> tokenList;
-    private int pointer;
+    private int next;
 
-    public AST parse(List<Token> tokenList) throws Exception {
+    public boolean parse(List<Token> tokenList) {
         this.tokenList = tokenList;
-        pointer = 0;
-        if (program()) {
-            return ast;
-        } else throw new Exception("Error at line: " + errorLine);
+        next = 0;
+        boolean success = program();
+        if (success)
+            return true;
+        System.out.println("Parsing error at line: " + errorLine);
+        return false;
     }
 
     private boolean program() {
-
-        return token("int", TokenType.KEYWORD) && token("main", TokenType.MAIN) &&
-                token("{", TokenType.SEPARATOR) && expression() && token("}", TokenType.SEPARATOR);
+        return term("int", TokenType.KEYWORD) && term("main", TokenType.KEYWORD) &&
+                term("{", TokenType.SEPARATOR) && E() && term("}", TokenType.SEPARATOR);
     }
 
-    private boolean expression() {
+    private boolean E() {
         // continue from here.
-//        return true;
+        // return true or false;
     }
 
     /**
@@ -37,14 +36,16 @@ public class Parser {
      * @param tokenType
      * @return
      */
-    private boolean token(String token, TokenType tokenType) {
-        Token t = tokenList.get(pointer);
-        if (t.getData().equals(token) && t.getTokenClass().equals(tokenType.name())) {
-            pointer++;
+    private boolean term(String token, TokenType tokenType) {
+        Token nextToken = tokenList.get(next);
+        if (nextToken.getData().equals(token) && nextToken.getTokenClass().equals(tokenType.name())) {
+            next++;
             return true;
+        } else {
+            errorLine = next;
+            next++;
+            return false;
         }
-        errorLine = pointer;
-        return false;
     }
 
     /**
@@ -53,14 +54,15 @@ public class Parser {
      * @param tokenType
      * @return
      */
-    private boolean token(TokenType tokenType) {
-        Token t = tokenList.get(pointer);
-        if (t.getTokenClass().equals(tokenType.name())) {
-            pointer++;
+    private boolean term(TokenType tokenType) {
+        Token nextToken = tokenList.get(next);
+        if (nextToken.getTokenClass().equals(tokenType.name())) {
+            next++;
             return true;
+        } else {
+            errorLine = next;
+            next++;
+            return false;
         }
-        errorLine = pointer;
-        return false;
     }
-
 }

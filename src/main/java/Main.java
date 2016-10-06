@@ -27,12 +27,7 @@ public class Main {
             showTokens(tokenList);
 
             Parser parser = new Parser();
-            AST ast = null;
-            try {
-                ast = parser.parse(tokenList);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            boolean success = parser.parse(tokenList);
         }
     }
 

@@ -20,8 +20,8 @@ public class Parser {
     }
 
     private boolean program() {
-        return term("int", TokenType.KEYWORD) && term("main", TokenType.KEYWORD) &&
-                term("{", TokenType.SEPARATOR) && E() && term("}", TokenType.SEPARATOR);
+        return term("int", TokenType.KEYWORD) && term("main", TokenType.KEYWORD) && term("(", TokenType.SEPARATOR)
+                && term(")", TokenType.SEPARATOR) && term("{", TokenType.SEPARATOR) && E() && term("}", TokenType.SEPARATOR);
     }
 
     private boolean E() {

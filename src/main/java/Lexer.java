@@ -21,6 +21,6 @@ public class Lexer {
 //		Your code goes here!
 //		Extract the next token from inputData and add it to tokenList
 //		The return value refers to the end of next token in inputData
-//        return 1;
+        return 1;
     }
 }

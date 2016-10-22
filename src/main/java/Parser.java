@@ -22,11 +22,16 @@ public class Parser {
     }
 
     private boolean program() {
-
         ASTNode thisNode = rootNode.addChild("program", 0);
-        return term("int", TokenType.KEYWORD, thisNode, 0) && term("main", TokenType.KEYWORD, thisNode, 1)
+        boolean b = term("int", TokenType.KEYWORD, thisNode, 0) && term("main", TokenType.KEYWORD, thisNode, 1)
                 && term("(", TokenType.SEPARATOR, thisNode, 2) && term(")", TokenType.SEPARATOR, thisNode, 3)
                 && term("{", TokenType.SEPARATOR, thisNode, 4) && E(5, thisNode) && term("}", TokenType.SEPARATOR, thisNode, 6);
+        boolean c = tokenList.size() == next;
+        return b && c;
+
+//        return term("int", TokenType.KEYWORD, thisNode, 0) && term("main", TokenType.KEYWORD, thisNode, 1)
+//                && term("(", TokenType.SEPARATOR, thisNode, 2) && term(")", TokenType.SEPARATOR, thisNode, 3)
+//                && term("{", TokenType.SEPARATOR, thisNode, 4) && E(5, thisNode) && term("}", TokenType.SEPARATOR, thisNode, 6);
     }
 
     private boolean E(int childIndex, ASTNode currentNode) {

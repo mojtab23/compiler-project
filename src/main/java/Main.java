@@ -28,6 +28,9 @@ public class Main {
 
             Parser parser = new Parser();
             boolean success = parser.parse(tokenList);
+            if (success) {
+                ASTNode.getRootNode().print();
+            }
         }
     }
 

@@ -8,51 +8,52 @@ public class ASTNode {
 
 
     private static ASTNode rootNode;
-    private String name;
-    private ASTNode parentNode;
+    private final String name;
     private Token token = null;
     private List<ASTNode> children = new ArrayList<>();
 
-    private ASTNode(ASTNode parent, String name) {
-        parentNode = parent;
+    public ASTNode(String name) {
         this.name = name;
     }
 
-    private ASTNode(ASTNode parent, String name, Token token) {
-        parentNode = parent;
+    public ASTNode(String name, Token token) {
         this.name = name;
         this.token = token;
     }
 
-    public static ASTNode getRootNode(String name) {
+    public static ASTNode getRootNode() {
         if (rootNode == null) {
-            rootNode = new ASTNode(null, name);
+            rootNode = new ASTNode("");
         }
         return rootNode;
     }
 
-    public ASTNode addChild(String name, int childIndex) {
-        ASTNode newNode = new ASTNode(this, name);
-        this.children.add(childIndex, newNode);
+    public List<ASTNode> getChildren() {
+        return children;
+    }
+
+    public ASTNode addChild(String name) {
+        ASTNode newNode = new ASTNode(name);
+        this.children.add(newNode);
         return newNode;
     }
 
-    public ASTNode addChild(String name, Token token, int childIndex) {
-        ASTNode newNode = new ASTNode(this, name, token);
-        this.children.add(childIndex, newNode);
+    public ASTNode addChild(String name, Token token) {
+        ASTNode newNode = new ASTNode(name, token);
+        this.children.add(newNode);
         return newNode;
     }
 
-    public void removeChild(int childIndex) {
-        children.remove(childIndex);
-    }
 
     public void print() {
         print("", true);
     }
 
     private void print(String prefix, boolean isTail) {
-        System.out.println(prefix + (isTail ? "└── " : "├── ") + name);
+        if (token != null)
+            System.out.println(prefix + (isTail ? "└── " : "├── ") + name + "#" + token.getData());
+        else
+            System.out.println(prefix + (isTail ? "└── " : "├── ") + name);
         for (int i = 0; i < children.size() - 1; i++) {
             children.get(i).print(prefix + (isTail ? "    " : "│   "), false);
         }

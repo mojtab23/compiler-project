@@ -6,18 +6,16 @@ public class Token {
     private String data;
     private String tokenClass;
     private int line;
-    private int start;
 
     public Token(String data, String tokenClass) {
         this.data = data;
         this.tokenClass = tokenClass;
     }
 
-    public Token(String data, String tokenClass, int line, int start) {
+    public Token(String data, String tokenClass, int line) {
         this.data = data;
         this.tokenClass = tokenClass;
         this.line = line;
-        this.start = start;
     }
 
     @Override
@@ -53,16 +51,6 @@ public class Token {
     public void setLine(int line) {
         this.line = line;
     }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-
 
 
 }

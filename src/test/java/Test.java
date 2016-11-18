@@ -16,27 +16,24 @@ input text: def variable = 15;
  */
 
     public static void main(String[] args) {
-        System.out.println("input text: def myNumber = 15;");
+        SymbolTable symbolTable = new SymbolTable();
+        symbolTable.addSymbol("int", "one");
+        symbolTable.enterScope();
+        symbolTable.addSymbol("bool", "asdf");
+        symbolTable.addSymbol("bool", "two");
+        symbolTable.addSymbol("bool", "three");
+        symbolTable.enterScope();
+        symbolTable.addSymbol("bool", "one");
+        symbolTable.exitScope();
+        System.out.println(symbolTable.checkSymbol("bool", "three"));
+        System.out.println(symbolTable.findSymbol("one"));
 
-        Token token1 = new Token("def", TokenType.KEYWORD.name());
-        Token token2 = new Token("myNumber", TokenType.IDENTIFIER.name());
-        Token token3 = new Token("=", TokenType.OPERATOR.name());
-        Token token4 = new Token("15", TokenType.NUMBER_LITERAL.name());
-        Token token5 = new Token(";", TokenType.SEPARATOR.name());
 
-        ASTNode assignment = ASTNode.getRootNode().addChild("declaration_statement");
-        ASTNode declaration = assignment.addChild("declaration");
-        ASTNode simple_expression = assignment.addChild("simple_expression");
+        SymbolTable.Variable one = symbolTable.findSymbol("one");
+        if (one != null) {
+            System.out.println(one.name + " " + one.type);
+        }
 
-        assignment.addChild("separator", token5);
-
-        declaration.addChild("type", token1);
-        declaration.addChild("identifier", token2);
-
-        simple_expression.addChild("assignmentOperator", token3);
-        simple_expression.addChild("assignmentLiteral", token4);
-
-        assignment.print();
     }
 
 }

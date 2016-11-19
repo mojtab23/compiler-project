@@ -4,48 +4,46 @@ import java.util.Stack;
  * Created by mojtab23 on 11/18/16.
  */
 public class SymbolTable {
-
-    private final static Scope SCOPE = new Scope();
-    private Stack<SymbolTableMember> stack;
+    private final static Scope currentScope = new Scope();
+    private Stack<SymbolTableElement> stack;
 
     public SymbolTable() {
         stack = new Stack<>();
-        stack.push(SCOPE);
+        stack.push(currentScope);
     }
 
     public void enterScope() {
-        stack.push(SCOPE);
+        stack.push(currentScope);
     }
 
     public void exitScope() {
-        boolean doo;
+        boolean isVar;
         do {
-            SymbolTableMember pop = stack.pop();
-            doo = pop.isVariable();
-        } while (doo);
+            SymbolTableElement pop = stack.pop();
+            isVar = pop.isVariable();
+        } while (isVar);
     }
 
-    public void addSymbol(String type, String name) {
-        stack.push(new Variable(type, name));
+    public void addSymbol(String varType, String varName) {
+        stack.push(new Variable(varType, varName));
     }
 
-    public boolean checkSymbol(String type, String name) {
-        int scopePosition = stack.search(SCOPE);
-        int i = stack.search(new Variable(type, name));
-        return i != -1 && i < scopePosition;
+    public boolean checkSymbol(String varType, String varName) {
+        int scopePosition = stack.search(currentScope);
+        int i = stack.search(new Variable(varType, varName));
+        return (i >= 0) && (i < scopePosition);
     }
 
-    public Variable findSymbol(String name) {
-        int i = stack.lastIndexOf(new Variable(null, name));
+    public Variable findSymbol(String varName) {
+        int i = stack.lastIndexOf(new Variable(null, varName));
         return (Variable) stack.get(i);
     }
 
-
-    interface SymbolTableMember {
+    interface SymbolTableElement {
         boolean isVariable();
     }
 
-    public static class Scope implements SymbolTableMember {
+    public static class Scope implements SymbolTableElement {
         @Override
         public boolean isVariable() {
             return false;
@@ -57,21 +55,20 @@ public class SymbolTable {
         }
     }
 
-    public class Variable implements SymbolTableMember {
-
-        String type;
-        String name;
+    public class Variable implements SymbolTableElement {
+        String varType;
+        String varName;
 
         public Variable(String type, String name) {
-            this.type = type;
-            this.name = name;
+            this.varType = type;
+            this.varName = name;
         }
 
         @Override
         public String toString() {
             return "Variable{" +
-                    "type='" + type + '\'' +
-                    ", name='" + name + '\'' +
+                    "varType='" + varType + '\'' +
+                    ", varName='" + varName + '\'' +
                     '}';
         }
 
@@ -82,21 +79,19 @@ public class SymbolTable {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
+            if (this == o)
+                return true;
+            if ((o == null) || (getClass() != o.getClass()))
+                return false;
             Variable variable = (Variable) o;
-
-            return (type == null || type.equals(variable.type)) && name.equals(variable.name);
-
+            return ((varType == null) || varType.equals(variable.varType)) && varName.equals(variable.varName);
         }
 
         @Override
         public int hashCode() {
-            int result = type.hashCode();
-            result = 31 * result + name.hashCode();
+            int result = varType.hashCode();
+            result = 31 * result + varName.hashCode();
             return result;
         }
     }
-
 }

@@ -31,7 +31,7 @@ input text: def variable = 15;
 
         SymbolTable.Variable one = symbolTable.findSymbol("one");
         if (one != null) {
-            System.out.println(one.name + " " + one.type);
+            System.out.println(one.varName + " " + one.varType);
         }
 
     }

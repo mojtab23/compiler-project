@@ -30,6 +30,9 @@ public class Main {
             boolean success = parser.parse(tokenList);
             if (success) {
                 ASTNode.getRootNode().print();
+                CodeGenerator codeGenerator = new CodeGenerator();
+                String mipsCode = codeGenerator.generateCode(ASTNode.getRootNode());
+                System.out.println(mipsCode);
             }
         }
     }

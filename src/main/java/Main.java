@@ -31,7 +31,7 @@ public class Main {
             if (success) {
                 ASTNode.getRootNode().print();
                 CodeGenerator codeGenerator = new CodeGenerator();
-                String mipsCode = codeGenerator.generateCode(ASTNode.getRootNode());
+                String mipsCode = codeGenerator.CGen(ASTNode.getRootNode());
                 System.out.println(mipsCode);
             }
         }

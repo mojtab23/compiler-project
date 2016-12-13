@@ -4,7 +4,7 @@
 public class CodeGenerator {
 
 
-    public String generateCode(ASTNode rootNode) {
+    public String CGen(ASTNode rootNode) {
 
 // Your code comes here!
         return "";
